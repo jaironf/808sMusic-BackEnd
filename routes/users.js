@@ -9,6 +9,6 @@ router.post('/login', UserController.login)
 router.delete('/logout', authentication, UserController.logout)
 router.get('/id/:_id', authentication, UserController.getOnline)
 router.get('/userName/:userName', authentication, UserController.getByUserName)
-
+router.delete('/', authentication, UserController.deleteUser)
 
 module.exports = router

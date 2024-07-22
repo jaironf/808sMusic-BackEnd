@@ -75,6 +75,18 @@ const UserController = {
             console.error(error);
             res.status(500).send(error)
         }
+    },
+    async deleteUser(req, res) {
+        try {
+            await User.findByIdAndDelete(req.user._id);
+            res.send({ message: "User deleted" });
+        }
+        catch (error) {
+            console.error(error);
+            res.status(500).send({
+                message: "There was a problem deleting the user",
+            });
+        }
     }
 }
 
