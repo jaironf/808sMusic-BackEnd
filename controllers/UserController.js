@@ -47,6 +47,34 @@ const UserController = {
             console.error(error);
             res.status(500).send({msg: 'It seems that there was a problem when trying to disconnect the user'})
         }
+    },
+    async getOnline(req, res) {
+        try {
+            const user = await User.findOne({_id: req.params._id})
+            if (!user.online) {
+                user.online = true;
+                await user.save();
+                return res.send({msg: `The user with the Id ${req.params._id} is online`})
+            } else {
+                return res.send({msg: `The user with the Id ${req.params._id} is offline`})
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(500).send(error)
+        }
+    },
+    async getByUserName(req, res) {
+        try {
+            if(req.params.userName.length > 20) {
+                return res.status(400).send({msg: 'Your search is very long'})
+            }
+            const userName = new RegExp(req.params.userName, 'i')
+            const user = await User.find({userName})
+            res.send(user)
+        } catch (error) {
+            console.error(error);
+            res.status(500).send(error)
+        }
     }
 }
 
