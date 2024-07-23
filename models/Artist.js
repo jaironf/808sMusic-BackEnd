@@ -1,11 +1,25 @@
-const { type } = require('express/lib/response')
 const mongoose = require('mongoose')
-const ObjectId = mongoose.SchemaType.ObjectId
+// const ObjectId = mongoose.SchemaType.ObjectId
 
 
 const ArtistSchema = new mongoose.Schema({
     name: {
         type: String
+    },
+    email: {
+        type: String,
+        match: [/.+\@.+\..+/, 'Invalid email'],
+        required: [true, 'Please fill in the email field'],
+        unique: [true, 'This email already exist']
+    },
+    password: {
+        type: String,
+        require: true
+    },
+    token: [],
+    confirmed: {
+        type: Boolean,
+        default: false
     },
     description: {
         type: String
@@ -22,7 +36,7 @@ const ArtistSchema = new mongoose.Schema({
     artistPhoto: {
         type: String
     },
-    albumId:[{type: ObjectId, ref: 'Album'}],
+    // albumId:[{type: ObjectId, ref: 'Album'}],
     }
 )
 
