@@ -16,7 +16,7 @@ const ArtistSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    token: [],
+    tokens: [],
     confirmed: {
         type: Boolean,
         default: false
