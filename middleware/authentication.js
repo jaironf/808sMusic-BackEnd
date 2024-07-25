@@ -1,3 +1,4 @@
+const Artist = require('../models/Artist')
 const User = require('../models/User')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
@@ -20,5 +21,21 @@ const authentication = async(req, res, next) => {
     }
 }
 
+const authenticationArtist = async(req, res, next) => {
+    try {
+        const token = req.headers.authorization;
+        const payload = jwt.verify(token, JWT_SECRET);
+        const artist = await Artist.findOne({_id: payload._id, tokens: token});
+        if (!artist) {
+            return res.status(401).send({msg: 'Manin que no estás autorizado'})
+        }
+        req.artist = artist;
+        next()
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({msg: 'There was a problem with the token'})
+    }
+}
 
-module.exports = {authentication}
+
+module.exports = {authentication, authenticationArtist}

@@ -4,7 +4,8 @@ const mongoose = require('mongoose')
 
 const ArtistSchema = new mongoose.Schema({
     name: {
-        type: String
+        type: String,
+        require: [true, 'Please fill in the name field']
     },
     email: {
         type: String,

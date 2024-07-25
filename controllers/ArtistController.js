@@ -48,8 +48,29 @@ const ArtistController = {
             console.error(error);
             res.status(500).send({msg: 'It seems that there was a problem when trying to disconnect'})
         }
+    },
+    async getArtistByName(req, res){
+        try {
+            if(req.params.name.length > 20) {
+                return res.status(400).send({msg: 'Your search is very long'})
+            }
+            const name = new RegExp(req.params.name, 'i')
+            const artist = await Artist.find({name})
+            res.send(artist)
+        } catch (error) {
+            console.error(error);
+            res.status(500).send(error)
+        }
+    },
+    async deleteArtist(req, res) {
+        try {
+            await Artist.findOneAndDelete(req.artist._id);
+            res.send({msg: 'Artist deleted'})
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({msg: 'There was a problem deleting the artist'})
+        }
     }
-
 }
 
 
