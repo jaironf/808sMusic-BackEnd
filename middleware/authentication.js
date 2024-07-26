@@ -27,7 +27,7 @@ const authenticationArtist = async(req, res, next) => {
         const payload = jwt.verify(token, JWT_SECRET);
         const artist = await Artist.findOne({_id: payload._id, tokens: token});
         if (!artist) {
-            return res.status(401).send({msg: 'Manin que no estás autorizado'})
+            return res.status(401).send({msg: 'You are not authorized'})
         }
         req.artist = artist;
         next()

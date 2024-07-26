@@ -38,8 +38,7 @@ const ArtistSchema = new mongoose.Schema({
         type: String
     },
     // albumId:[{type: ObjectId, ref: 'Album'}],
-    }
-)
+}, {timestamps: true})
 
 ArtistSchema.method.toJSON = function(){
     const artist = this._doc;
