@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Song = require('./Song');
-const ObjectId = mongoose.SchemaType.ObjectId
+const ObjectId = mongoose.SchemaTypes.ObjectId
 
 
 const ArtistSchema = new mongoose.Schema({
@@ -40,7 +40,7 @@ const ArtistSchema = new mongoose.Schema({
     },
     songId: {
         type: ObjectId,
-        ref: Song
+        ref: 'Song'
     }
     // albumId:[{type: ObjectId, ref: 'Album'}],
 }, {timestamps: true})

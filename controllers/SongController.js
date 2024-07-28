@@ -6,9 +6,9 @@ require('dotenv').config()
 const SongController = {
     async create(req, res){
         try {
-            const Song = await Song.create({
+            const song = await Song.create({
                 ...req.body,
-                artistId: req.user._id
+                artistId: req.artist._id
             })
             const createSong = await Song.create(song);
             await Artist.findByIdAndUpdate(req.params._id, {
@@ -18,7 +18,8 @@ const SongController = {
             console.error(error);
             res.status(500).send({msg: 'There was a problem creating the song', error})
         }
-    }
+    },
+    
 }
 
 

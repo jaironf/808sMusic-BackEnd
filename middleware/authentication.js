@@ -1,5 +1,6 @@
 const Artist = require('../models/Artist')
 const User = require('../models/User')
+const Song = require('../models/Song')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 const JWT_SECRET = process.env.JWT_SECRET
@@ -37,5 +38,17 @@ const authenticationArtist = async(req, res, next) => {
     }
 }
 
+const isAuthor = async(req, res, next) => {
+    try {
+        const song = await Song.findById(req.params._id)
+        if (song.artistId.toString() !== req.artist._id.toString()) {
+            return res.status(403).send({msg: 'You are not authorized'})
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({error, msg: 'There was a problem when checking the authorship of the song'})
+    }
+}
 
-module.exports = {authentication, authenticationArtist}
+
+module.exports = {authentication, authenticationArtist, isAuthor}

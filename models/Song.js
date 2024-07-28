@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const Artist = require('./Artist');
-const ObjectId = mongoose.SchemaType.ObjectId
+// const Artist = require('./Artist');
+const ObjectId = mongoose.SchemaTypes.ObjectId
 
 const SongSchema = new mongoose.Schema({
     name: {
@@ -8,7 +8,7 @@ const SongSchema = new mongoose.Schema({
         require: [true, 'Please fill in the name of the song']
     },
     releaseDate: {
-        type: Date,
+        type: String,
         require: [true, 'Please fill in the release date']
     },
     urlSong: {
@@ -18,10 +18,8 @@ const SongSchema = new mongoose.Schema({
     lyric: {
         type: String,
     },
-    artistId: {
-        type: ObjectId,
-        ref: Artist
-    }
+    artistId: {type: ObjectId, ref: 'Artist'}
+
 }, {timestamps: true})
 
 SongSchema.method.toJSON = function(){

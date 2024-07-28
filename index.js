@@ -12,6 +12,7 @@ app.use(cors())
 
 app.use('/users', require('./routes/users'))
 app.use('/artists', require('./routes/artists'))
+app.use('/songs', require('./routes/songs'))
 
 
 
